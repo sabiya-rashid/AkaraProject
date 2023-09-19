@@ -8,9 +8,9 @@ namespace Data.TestData
 
         public static List<Property> Properties = new List<Property>
         {
-            new Property {Id = 1, Name = "Property 1", Description = "This is the description of property 1", Country = "India", State = "Delhi", Type = "Luxurious", Price = 400, BathroomsCount= 4, BedroomsCount= 5, Status = "Rent", Features = "", Verrified = true },
-            new Property {Id = 2, Name = "Property 2", Description = "This is the description of property 1", Country = "India", State = "Mumbai", Type = "Semi-Luxurious", Price = 200,  BathroomsCount= 4, BedroomsCount= 5, Status = "Sell", Features = "", Verrified = true},
-            new Property {Id = 3, Name = "Property 2", Description = "This is the description of property 1", Country = "India", State = "Mumbai", Type = "Semi-Luxurious", Price = 200,  BathroomsCount= 4, BedroomsCount= 5, Status = "Sell", Features = "", Verrified = false}
+            new Property {Id = 1, Name = "Property 1", Description = "This is the description of property 1", Country = "India", State = "Delhi", Type = "Luxurious", Price = 400, BathroomsCount= 4, BedroomsCount= 5, Status = "Rent", Features = "", Verrified = true, UserId = 1 },
+            new Property {Id = 2, Name = "Property 2", Description = "This is the description of property 1", Country = "India", State = "Mumbai", Type = "Semi-Luxurious", Price = 200,  BathroomsCount= 4, BedroomsCount= 5, Status = "Sell", Features = "", Verrified = true, UserId = 2},
+            new Property {Id = 3, Name = "Property 2", Description = "This is the description of property 1", Country = "India", State = "Mumbai", Type = "Semi-Luxurious", Price = 200,  BathroomsCount= 4, BedroomsCount= 5, Status = "Sell", Features = "", Verrified = false, UserId = 1}
         };
 
         public static List<User> Users = new List<User>
