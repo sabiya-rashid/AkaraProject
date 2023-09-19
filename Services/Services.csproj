@@ -7,10 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    <None Remove="IServices\" />
+    <None Remove="Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IServices\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoWrapper.Core" Version="4.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+>>>>>>> Stashed changes
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\DbContext\Data.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Repositories\Repository.csproj" />
+  </ItemGroup>
+<<<<<<< Updated upstream
+
+=======
+=======
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DbContext\Data.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
     <ProjectReference Include="..\Repositories\Repository.csproj" />
   </ItemGroup>
 
+>>>>>>> Sabiya
+>>>>>>> Stashed changes
 </Project>
