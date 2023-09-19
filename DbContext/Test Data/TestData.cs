@@ -18,6 +18,8 @@ namespace Data.TestData
             new User {Id = 1, Name = "user 1", Email = "user1@gmail.com", Password = "123456", Phone = "1234567890", Role = "User" },
             new User {Id = 2, Name = "user 2",Email = "user2@gmail.com", Password = "123456", Phone = "1234567890", Role = "User"  },
             new User {Id = 3, Name = "user 2", Email = "user3@gmail.com", Password = "123456", Phone = "1234567890", Role = "User"}
+
+
         };
 
         //public static List<Contract> Contracts = new List<Contract>
