@@ -17,6 +17,5 @@ namespace Models
        public string Role { get; set; } = "User";
        public ICollection<Property>? Properties { get; set; }
        public ICollection<Contract>? Contracts { get; set; }
-       public string Dummy { get; set; }
     }
 }
