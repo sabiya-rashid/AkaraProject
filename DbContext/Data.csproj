@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="EntityConfiguration\" />
+    <Folder Include="Test Data\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,5 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Test Data\" />
   </ItemGroup>
 </Project>
