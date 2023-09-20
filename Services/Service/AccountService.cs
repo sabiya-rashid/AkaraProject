@@ -98,6 +98,7 @@ namespace Services.Service
             user.Email = registerDto.Email;
             user.Password = passwordhash;
             user.Name = registerDto.Name;
+            user.Phone = registerDto.Phone;
             _context.Add(user);
             _context.SaveChanges();
 
