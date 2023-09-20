@@ -21,7 +21,10 @@ namespace Data
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PropertyConfiguration());
             modelBuilder.ApplyConfiguration(new ContractConfiguration());
+
+
         }
-        }
+
+    }
 }
 

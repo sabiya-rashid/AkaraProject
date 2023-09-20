@@ -25,7 +25,7 @@ namespace Services.Service
 
         public ApiResponse BuyProperty(int Id)
         {
-            Property property = _dbContext.Properties.Find(Id);
+            Property property = _dbContext.Properties.Where(p => p.Verrified == true).FirstOrDefault(i => i.Id == Id);
             if (property == null)
             {
                 return new ApiResponse { Message = "No Property Found" };
@@ -102,7 +102,7 @@ namespace Services.Service
 
         public ApiResponse GetProperty(int Id)
         {
-            Property property = _dbContext.Properties.Find(Id);
+            Property property = _dbContext.Properties.Where(p => p.Verrified == true).FirstOrDefault(i=>i.Id == Id);
             if(property == null)
             {
                 return new ApiResponse { Message = "No Property Found"};
