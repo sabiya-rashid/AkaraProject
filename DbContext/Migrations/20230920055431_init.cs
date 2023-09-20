@@ -67,8 +67,7 @@ namespace Data.Migrations
                 name: "Contracts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ContractType = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -82,28 +81,16 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Contracts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contracts_Properties_PropertyId",
-                        column: x => x.PropertyId,
+                        name: "FK_Contracts_Properties_Id",
+                        column: x => x.Id,
                         principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Contracts_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Contracts_Users_Id",
+                        column: x => x.Id,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contracts_PropertyId",
-                table: "Contracts",
-                column: "PropertyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contracts_UserId",
-                table: "Contracts",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_UserId",
