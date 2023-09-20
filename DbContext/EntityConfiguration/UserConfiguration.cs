@@ -14,6 +14,9 @@ namespace Data.EntityConfiguration
                 builder.Property(r => r.Name).HasMaxLength(50);
                 builder.Property(r => r.Email).HasMaxLength(50);
                 builder.Property(r => r.Phone).HasMaxLength(10);
+
+            builder.HasMany(r => r.Properties).WithOne(r=> r.User).HasForeignKey(r => r.UserId);
+            builder.HasMany(r => r.Contracts).WithOne(r => r.User).HasForeignKey(r => r.UserId);
         }
     }
 }
