@@ -60,20 +60,23 @@ namespace Data.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Contracts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ContractType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
+                    PropertyId1 = table.Column<int>(type: "int", nullable: true),
+                    UserId1 = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -81,27 +84,25 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Contracts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contracts_Properties_Id",
-                        column: x => x.Id,
-                        principalTable: "Properties",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Contracts_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Contracts_Users_Id",
-                        column: x => x.Id,
-                        principalTable: "Users",
+                        name: "FK_Contracts_Properties_PropertyId1",
+                        column: x => x.PropertyId1,
+                        principalTable: "Properties",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Contracts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Contracts_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -110,9 +111,19 @@ namespace Data.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contracts_PropertyId1",
+                table: "Contracts",
+                column: "PropertyId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contracts_UserId",
                 table: "Contracts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_UserId1",
+                table: "Contracts",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_UserId",

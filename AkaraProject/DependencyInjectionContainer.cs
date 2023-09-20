@@ -7,8 +7,9 @@ namespace AkaraProject
     {
 public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IPropertyService, PropertyService>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IPropertyService, PropertyService>();
+            services.AddHttpContextAccessor();
             return services;
         }
     }

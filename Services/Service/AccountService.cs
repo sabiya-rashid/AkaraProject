@@ -72,7 +72,8 @@ namespace Services.Service
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, user.Email)
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.Id))
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

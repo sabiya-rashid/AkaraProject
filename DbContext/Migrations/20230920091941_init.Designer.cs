@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AkaraDbContext))]
-    [Migration("20230920073543_init")]
+    [Migration("20230920091941_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -31,6 +31,8 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("ContractType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,6 +49,9 @@ namespace Data.Migrations
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PropertyId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -56,11 +61,18 @@ namespace Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PropertyId");
 
+                    b.HasIndex("PropertyId1");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Contracts");
                 });
@@ -182,27 +194,23 @@ namespace Data.Migrations
                 {
                     b.HasOne("Models.Property", "Property")
                         .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Models.Property", null)
                         .WithMany("Contracts")
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("PropertyId1");
+
+                    b.HasOne("Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Models.User", null)
                         .WithMany("Contracts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Property");
 

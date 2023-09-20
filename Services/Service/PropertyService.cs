@@ -2,18 +2,23 @@
 using Common.DTOs.Contract;
 using Common.DTOs.Property;
 using Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Services.IServices;
 using System;
+using System.Security.Claims;
+
 namespace Services.Service
 {
     public class PropertyService : IPropertyService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly AkaraDbContext _dbContext;
 
-        public PropertyService(AkaraDbContext dbContext)
+        public PropertyService(AkaraDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _dbContext = dbContext;
         }
 
@@ -36,7 +41,7 @@ namespace Services.Service
                 StartDate = DateTime.Now,
                 Price = property.Price,
                 PropertyId = property.Id,
-                UserId = 2,
+                UserId = int.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier).Value),
                 ContractType = "Sold"
             };
             property.Status = "Sold";
@@ -61,7 +66,7 @@ namespace Services.Service
                 Price = PropertyDto.Price,
                 Status = PropertyDto.Status,
                 Features = PropertyDto.Features,
-                UserId =1
+                UserId = int.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier).Value)
             };
 
             _dbContext.Properties.Add(property);
@@ -83,14 +88,14 @@ namespace Services.Service
 
         public ApiResponse GetOnRentProperties()
         {
-            IQueryable<Property> propertiesOnRent = _dbContext.Properties.Include(u => u.User).Include(c => c.Contracts).Where(p => p.Status.ToLower() == "on rent").Where(p => p.Verrified == true);
+            IQueryable<Property> propertiesOnRent = _dbContext.Properties.Where(p => p.Status.ToLower() == "on rent").Where(p => p.Verrified == true);
 
             return new ApiResponse { Result = propertiesOnRent };
         }
 
         public ApiResponse GetOnSellProperties()
         {
-            IQueryable<Property> propertiesOnSale = _dbContext.Properties.Include(u => u.User).Include(c => c.Contracts).Where(p => p.Status.ToLower() == "on sale").Where(p => p.Verrified == true);
+            IQueryable<Property> propertiesOnSale = _dbContext.Properties.Where(p => p.Status.ToLower() == "on sale").Where(p => p.Verrified == true);
 
             return new ApiResponse { Result = propertiesOnSale };
         }
@@ -124,7 +129,7 @@ namespace Services.Service
                 EndDate = contractDto.EndDate,
                 Price = property.Price,
                 PropertyId = property.Id,
-                UserId = 1,
+                UserId = int.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(n => n.Type == ClaimTypes.NameIdentifier).Value),
                 ContractType = "Rented"
             };
             property.Status = "Rented";
