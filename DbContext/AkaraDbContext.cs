@@ -11,9 +11,9 @@ namespace Data
         {
         }
 
-        DbSet<User> Users { get; set; }
-        DbSet<Property> Properties { get; set; }
-        DbSet<Contract> Contracts { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

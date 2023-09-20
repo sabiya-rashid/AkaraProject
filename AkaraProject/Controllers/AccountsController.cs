@@ -1,6 +1,8 @@
 ﻿using AutoWrapper.Wrappers;
+using Common.DTOs.UserDto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Services.IServices;
 
 namespace AkaraProject.Controllers
 {
@@ -8,17 +10,22 @@ namespace AkaraProject.Controllers
     [Route("[controller]")]
     public class AccountsController : Controller
     {
-        [HttpPost("Login")]
-        public ApiResponse Login(string username, string password)
+        private readonly IAccountService _accountServices;
+
+        public AccountsController(IAccountService accountService)
         {
-            var response = new ApiResponse();
-            return (ApiResponse)response;
+            _accountServices = accountService;
+        }
+
+        [HttpPost("Login")]
+        public ApiResponse Login(LoginDto loginDTO)
+        {
+            return _accountServices.Login(loginDTO);
         }
         [HttpPost("Register")]
-        public ApiResponse Register(string username, string password)
+        public ApiResponse Register(RegisterDto registerDto)
         {
-            var response = new ApiResponse();
-            return (ApiResponse)response;
+            return _accountServices.Register(registerDto);
         }
     }
 }
