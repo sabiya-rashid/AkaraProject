@@ -60,7 +60,7 @@ namespace Data.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,11 +86,33 @@ namespace Data.Migrations
                         principalTable: "Properties",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_Contracts_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Contracts_Users_Id",
                         column: x => x.Id,
                         principalTable: "Users",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Contracts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_PropertyId",
+                table: "Contracts",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_UserId",
+                table: "Contracts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_UserId",

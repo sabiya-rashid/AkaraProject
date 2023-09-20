@@ -61,6 +61,7 @@ namespace Services.Service
                 Price = PropertyDto.Price,
                 Status = PropertyDto.Status,
                 Features = PropertyDto.Features,
+                UserId =1
             };
 
             _dbContext.Properties.Add(property);
@@ -75,7 +76,7 @@ namespace Services.Service
 
         public ApiResponse GetAllProperties()
         {
-            IQueryable<Property> properties = _dbContext.Properties.Include(u => u.User).Include(c => c.Contracts).Where(p=>p.Verrified == true);
+            IQueryable<Property> properties = _dbContext.Properties.Where(p=>p.Verrified == true);
 
             return new ApiResponse { Result = properties };
         }
@@ -123,7 +124,7 @@ namespace Services.Service
                 EndDate = contractDto.EndDate,
                 Price = property.Price,
                 PropertyId = property.Id,
-                UserId = 2,
+                UserId = 1,
                 ContractType = "Rented"
             };
             property.Status = "Rented";

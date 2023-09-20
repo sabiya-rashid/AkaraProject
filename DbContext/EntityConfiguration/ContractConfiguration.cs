@@ -12,8 +12,8 @@ namespace Data.EntityConfiguration
                 builder.HasKey(r => r.Id);
                 builder.Property(r => r.Id).ValueGeneratedOnAdd();
 
-            builder.HasOne(r=> r.Property).WithMany(r=>r.Contracts).HasForeignKey(r=>r.Id).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(r => r.User).WithMany(r => r.Contracts).HasForeignKey(r => r.Id).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(r=> r.Property).WithMany().HasForeignKey(r=>r.Id).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(r => r.User).WithMany().HasForeignKey(r => r.Id).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

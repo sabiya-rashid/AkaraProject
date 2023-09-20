@@ -16,7 +16,8 @@ namespace Data.EntityConfiguration
             builder.Property(r => r.Country).HasMaxLength(50);
             builder.Property(r => r.State).HasMaxLength(50);
 
-            //builder.HasMany(r => r.Contracts).WithOne(r => r.Property).HasForeignKey(r => r.PropertyId).OnDelete(DeleteBehavior.Cascade);
+           // builder.HasOne(r => r.User).WithMany(r => r.Properties).HasForeignKey(r=> r.Id);
+           builder.HasMany(r => r.Contracts).WithOne(r => r.Property).HasForeignKey(r => r.PropertyId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

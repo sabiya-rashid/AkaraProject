@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AkaraDbContext))]
-    [Migration("20230920055431_init")]
+    [Migration("20230920073543_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -57,6 +57,10 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Contracts");
                 });
@@ -177,15 +181,27 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Contract", b =>
                 {
                     b.HasOne("Models.Property", "Property")
-                        .WithMany("Contracts")
+                        .WithMany()
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Models.User", "User")
-                        .WithMany("Contracts")
+                        .WithMany()
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Models.Property", null)
+                        .WithMany("Contracts")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.User", null)
+                        .WithMany("Contracts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Property");
