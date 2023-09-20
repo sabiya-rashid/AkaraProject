@@ -11,7 +11,7 @@ namespace Services.IServices
         ApiResponse GetProperty(int Id);
         ApiResponse Create(PropertyDto PropertyDto);
         ApiResponse BuyProperty(int Id);
-        ApiResponse RentProperty(ContractDto ContractDto);
+        ApiResponse RentProperty(ContractDto ContractDto, int Id);
         ApiResponse GetOnRentProperties();
         ApiResponse GetOnSellProperties();
         ApiResponse Delete(int id);
