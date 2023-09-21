@@ -13,6 +13,8 @@ public static IServiceCollection AddDependencies(this IServiceCollection service
         {
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IPropertyService, PropertyService>();
+            services.AddTransient<IAdminService, AdminService>();
+
             services.AddHttpContextAccessor();
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
             services.AddTransient<IValidator<RegisterDto>, RegisterValidator>();
