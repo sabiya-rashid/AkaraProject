@@ -45,19 +45,27 @@ namespace Services.Service
         public ApiResponse Login(LoginDto loginDTO)
         {
             var user = GetUser(loginDTO.Email);  
-            if(user == null)
+            if(user == null || !BCrypt.Net.BCrypt.Verify(loginDTO.Password, user.Password))
             {
                 var response = new ApiResponse()
                 {
-                    Message = "No user found with this email"
+                    Message = "Email or password is incorrect"
                 };
                 return response;
             }
-            if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, user.Password))
+
+            if (loginDTO.IsAdmin == true && user.Role != "Admin")
             {
                 var response = new ApiResponse
                 {
-                    Message = "Wrong password"
+                    Message = "Something Went wrong please trhy after sometime."
+                };
+                return response;
+            } else if (loginDTO.IsAdmin == false && user.Role == "Admin")
+            {
+                var response = new ApiResponse
+                {
+                    Message = "Username or Password is Incorrect."
                 };
                 return response;
             }
@@ -69,11 +77,13 @@ namespace Services.Service
             };
             return result;
         }
+
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim> {
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.Id))
+                new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.Id)),
+                new Claim(ClaimTypes.Role, user.Role.ToLower())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

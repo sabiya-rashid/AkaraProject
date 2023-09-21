@@ -27,5 +27,10 @@ namespace AkaraProject.Controllers
         {
             return _accountServices.Register(registerDto);
         }
+        [HttpPost("GetUsers")]
+        public ApiResponse GetUsers(LoginDto loginDTO)
+        {
+            return _accountServices.GetAllUsers();
+        }
     }
 }
