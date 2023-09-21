@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using Services.IServices;
 using System;
+using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.Security.Claims;
 
 namespace Services.Service
@@ -76,7 +78,14 @@ namespace Services.Service
 
         public ApiResponse Delete(int id)
         {
-            throw new NotImplementedException();
+            var property = _dbContext.Properties.Find(id);
+            if (property == null)
+            {
+                return new ApiResponse { Message = "No Property Found" };
+            }
+            _dbContext.Remove(property);
+            _dbContext.SaveChanges(true);
+            return new ApiResponse { Message = "Property deleted successfully" };
         }
 
         public ApiResponse GetAllProperties()
@@ -138,9 +147,26 @@ namespace Services.Service
             return new ApiResponse { Result = contract };
         }
 
-        public ApiResponse Update(int Id, PropertyDto PropertyDto)
+        public ApiResponse Update(int Id, PropertyDto propertyDto)
         {
-            throw new NotImplementedException();
+            var property = _dbContext.Properties.Find(Id);
+            if (property == null)
+            {
+                return new ApiResponse { Message = "No Property Found" };
+            }
+            property.Type = propertyDto.Type;
+            property.Name = propertyDto.Name;
+            property.Description = propertyDto.Description;
+            property.Country = propertyDto.Country;
+            property.State = propertyDto.State;
+            property.Size = propertyDto.Size;
+            property.BedroomsCount = propertyDto.BedroomsCount;
+            property.BathroomsCount = propertyDto.BathroomsCount;
+            property.Price = propertyDto.Price;
+            property.Status = propertyDto.Status;
+            property.Features = propertyDto.Features;
+            _dbContext.SaveChanges();
+            return new ApiResponse() { Result = property, Message ="Property updated successfully"}; 
         }
     }
 }
