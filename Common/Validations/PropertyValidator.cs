@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Common.Validations
@@ -12,8 +13,14 @@ namespace Common.Validations
     {
         public PropertyValidator() 
         {
-            RuleFor(c => c.Status).NotNull().NotEmpty().WithMessage("Password is required")
-                .Equal("on rent").Equal("on sale").WithMessage("Status must be equal to 'on sale' or 'on rent'");                
+            RuleFor(x => x.Status)
+            .NotEmpty().WithMessage("Status is required.")
+            .Must(BeValidStatus).WithMessage("Status must be 'on rent' or 'on sale'.");
+        }
+        private bool BeValidStatus(string status)
+        {
+            return status == "on rent" || status == "on sale";
         }
     }
 }
+

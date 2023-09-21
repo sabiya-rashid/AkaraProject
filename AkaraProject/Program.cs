@@ -1,5 +1,6 @@
 using AkaraProject;
 using Data;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -59,6 +60,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 builder.Services.AddControllers();
+builder.Services.AddMvc().AddFluentValidation(mvcconfiguration => mvcconfiguration.RegisterValidatorsFromAssemblyContaining<Program>());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
